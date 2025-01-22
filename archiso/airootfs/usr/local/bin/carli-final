@@ -1,0 +1,71 @@
+#!/bin/bash
+echo
+echo "#################################"
+echo "Start carli-final"
+echo "#################################"
+
+echo "Permissions of important folders"
+echo "#################################"
+chmod 750 /etc/sudoers.d
+chmod 750 /etc/polkit-1/rules.d
+chgrp polkitd /etc/polkit-1/rules.d
+
+echo "Copy /etc/skel to /root"
+echo "#################################"
+cp -aT /etc/skel/ /root/
+
+echo "Cleanup autologin root"
+echo "#################################"
+rm -rf /etc/systemd/system/getty@tty1.service.d
+
+echo "Setting editor to nano"
+echo "#################################"
+echo "EDITOR=nano" >> /etc/profile
+
+
+#Original cleanup
+echo "Cleanup original files"
+echo "#################################"
+# mkinitcpio
+rm -f /etc/mkinitcpio.conf.d/archiso.conf
+rm -rf /etc/mkinitcpio.conf.d/
+# ssh
+rm -f /etc/ssh/sshd_config.d/10-archiso.conf
+# mirror
+rm -f /etc/systemd/system/multi-user.target.wants/choose-mirror.service
+rm -f /etc/systemd/system/choose-mirror.service
+rm -f /usr/local/bin/choose-mirror
+# sound
+rm -f /etc/systemd/system/multi-user.target.wants/livecd-talk.service
+rm -f /etc/systemd/system/livecd-alsa-unmuter.service
+rm -f /etc/systemd/system/sound.target.wants/livecd-alsa-unmuter.service
+rm -f /etc/systemd/system/livecd-talk.service
+# reflector
+rm -f /etc/systemd/system/reflector.service.d/archiso.conf
+rm -rf /etc/systemd/system/reflector.service.d
+# resolv
+rm -f /etc/systemd/resolved.conf.d/archiso.conf
+rm -rf /etc/systemd/resolved.conf.d/
+
+rm -f /etc/sudoers.d/g_wheel
+rm -f /etc/polkit-1/rules.d/49-nopasswd_global.rules
+rm /root/{.automated_script.sh,.zlogin}
+mv /etc/carli-release /etc/lsb-release
+
+#cleanup
+for i in `ls /home/`; do rm -rf /home/$i/*/calamares.desktop || exit 0; done
+
+echo "Permission of root"
+echo "#################################"
+chmod -v 750 /root
+
+echo "pacman-init"
+echo "#################################" 
+rm -f /etc/systemd/system/multi-user.target.wants/pacman-init.service
+rm -f /etc/systemd/system/pacman-init.service
+rm -f /etc/systemd/system/etc-pacman.d-gnupg.mount
+
+echo "#################################"
+echo "End carli-final"
+echo "#################################"
+rm /usr/local/bin/carli-final
