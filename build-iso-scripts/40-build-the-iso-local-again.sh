@@ -51,8 +51,8 @@ echo
 	#Let us set the desktop"
 	#First letter of desktop is small letter
 
-	desktop="cinnamon"
-	dmDesktop="cinnamon"
+	desktop="budgie"
+	dmDesktop="budgie"
 
 	#carliVersion='v21.12.02'
 
@@ -297,7 +297,7 @@ echo
 	newname4='Carli'
 
 	#sddm.conf user-session
-	oldname5='Session=cinnamon'
+	oldname5='Session=budgie'
 	newname5='Session='$dmDesktop
 
 	echo "Changing all references"
