@@ -52,7 +52,7 @@ echo
 	#First letter of desktop is small letter
 
 	desktop="budgie"
-	dmDesktop="budgie"
+	dmDesktop="budgie-desktop"
 
 	#carliVersion='v21.12.02'
 
