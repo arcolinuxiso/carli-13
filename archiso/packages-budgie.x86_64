@@ -138,13 +138,14 @@ budgie
 gnome-terminal
 dconf-editor
 meld
+nautilus
 
 #Calamares
 calamares
 carli-calamares-config
 #carli-calamares-qml-config
 carli-mirrorlist
-carli-system-installation
+#carli-system-installation
 os-prober
 
 #Software
